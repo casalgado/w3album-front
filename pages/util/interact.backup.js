@@ -12,7 +12,7 @@ const alchemy = new Alchemy(settings);
 const provider = await alchemy.config.getProvider();
 
 const contractABI = require("../contract-abi.json");
-const contractAddress = "0x1Ee641636F495ec2b27fCEc42297081faaE8F82A";
+const contractAddress = "0x3f93a1D4F5db10E954866107dAFF376442b5C4Dc";
 
 const shapeContract = new ethers.Contract(
   contractAddress,
@@ -20,55 +20,29 @@ const shapeContract = new ethers.Contract(
   provider
 );
 
-export const getNFTs = async () => {
-  let nfts = [];
-  const m_provider = new ethers.providers.Web3Provider(window.ethereum, "any");
-  const signer = m_provider.getSigner();
-  const address = await signer.getAddress();
-  await alchemy.nft
-    .getNftsForOwner(address)
-    .then((res) => {
-      nfts = res.ownedNfts.filter(
-        (e) =>
-          e.contract.address == "0x1ee641636f495ec2b27fcec42297081faae8f82a"
-      );
-      console.log(nfts);
-    })
-    .catch((e) => console.log(e.message));
-  return nfts;
-};
-
-export const multiMint = async () => {
-  const m_provider = new ethers.providers.Web3Provider(window.ethereum, "any");
-  const signer = m_provider.getSigner();
+export const getBalance = async () => {
+  const providerMetamask = new ethers.providers.Web3Provider(
+    window.ethereum,
+    "any"
+  );
+  // Prompt user for account connections
+  await providerMetamask.send("eth_requestAccounts", []);
+  const signer = providerMetamask.getSigner();
   console.log("Account:", await signer.getAddress());
-  await shapeContract
-    .connect(signer)
-    .multiMint()
-    .then((e) => console.log(e))
-    .catch((e) => console.log(e.message));
+  shapeContract.connect(signer).multiMint();
+  return shapeContract.generateImage("2");
 };
 
 export const connectWallet = async () => {
-  console.log("i");
   if (window.ethereum) {
-    console.log("b");
     try {
-      console.log("c");
-      const provider = new ethers.providers.Web3Provider(
-        window.ethereum,
-        "any"
-      );
-
-      await provider.send("eth_requestAccounts", []);
-      const signer = provider.getSigner();
-      const address = await signer.getAddress();
+      const addressArray = await window.ethereum.request({
+        method: "eth_requestAccounts",
+      });
       const obj = {
         status: "Connected",
-        address: address,
-        provider: provider,
+        address: addressArray[0],
       };
-
       return obj;
     } catch (err) {
       return {
@@ -88,10 +62,6 @@ export const connectWallet = async () => {
 export const getCurrentWalletConnected = async () => {
   if (window.ethereum) {
     try {
-      const provider = new ethers.providers.Web3Provider(
-        window.ethereum,
-        "any"
-      );
       const addressArray = await window.ethereum.request({
         method: "eth_accounts",
       });
@@ -99,7 +69,6 @@ export const getCurrentWalletConnected = async () => {
         return {
           address: addressArray[0],
           status: "Connected",
-          provider: provider,
         };
       } else {
         return {
@@ -132,7 +101,11 @@ export const getCurrentWalletConnected = async () => {
   }
 };
 
-export const getShapesByOwenr = async () => {};
+export const getShapesByOwenr = async () => {
+  alchemy.nft
+    .getNftsForOwner("0x5E4a3dAfc837cFc4B0FeD7Bab4363B983CC3Cb8F")
+    .then(console.log);
+};
 
 // alchemy.core
 //   .getTokenBalances("0x5E4a3dAfc837cFc4B0FeD7Bab4363B983CC3Cb8F")
