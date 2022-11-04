@@ -5,7 +5,7 @@ import {
   getCurrentWalletConnected,
   getNFTs,
   multiMint,
-} from "./util/interact.js";
+} from "../util/interact.js";
 import { NFTCard } from "../components/nftCard";
 
 const Home = () => {

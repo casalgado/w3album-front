@@ -11,7 +11,7 @@ const settings = {
 const alchemy = new Alchemy(settings);
 const provider = await alchemy.config.getProvider();
 
-const contractABI = require("../contract-abi.json");
+const contractABI = require("../pages/contract-abi.json");
 const contractAddress = "0x1Ee641636F495ec2b27fCEc42297081faaE8F82A";
 
 const shapeContract = new ethers.Contract(
