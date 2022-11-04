@@ -5,6 +5,7 @@ import {
   getCurrentWalletConnected,
   getNFTs,
   multiMint,
+  submitAlbum,
 } from "../util/interact.js";
 import { NFTCard } from "../components/nftCard";
 
@@ -68,8 +69,44 @@ const Home = () => {
   };
 
   const handleCompleteAlbum = async () => {
-    console.log("");
+    const nfts = await getNFTs();
+    const completion = {};
+    const attrs = nfts
+      .filter((e) => e.rawMetadata.attributes[1].value == "No")
+      .map((e) => {
+        return { id: e.tokenId, shape: e.rawMetadata.attributes[0].value };
+      })
+      .sort(inverseById);
+
+    attrs.forEach((e) => {
+      completion[e.shape] = e.id;
+    });
+
+    console.log("attrs", attrs);
+    console.log("completion", completion);
+    if (completeAlbum(completion)) {
+      console.log("album completed");
+      submitAlbum(completion);
+    } else {
+      console.log("album not complete");
+    }
   };
+
+  function completeAlbum(completion) {
+    return Object.keys(completion).length == 9;
+  }
+
+  function inverseById(first, second) {
+    let a = parseInt(first.id);
+    let b = parseInt(second.id);
+    if (a < b) {
+      return 1;
+    }
+    if (a > b) {
+      return -1;
+    }
+    return 0;
+  }
 
   return (
     <div id="container">

@@ -2,7 +2,6 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import { useState } from "react";
 
 export const NFTCard = ({ nft }) => {
-  console.log(nft.media);
   const [copied, setCopied] = useState(false);
 
   const truncateRegex = /^(0x[a-zA-Z0-9]{4})[a-zA-Z0-9]+([a-zA-Z0-9]{4})$/;
