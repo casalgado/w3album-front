@@ -25,6 +25,7 @@ export const getNFTs = async () => {
   const m_provider = new ethers.providers.Web3Provider(window.ethereum, "any");
   const signer = m_provider.getSigner();
   const address = await signer.getAddress();
+  await alchemy.nft.refreshContract(contractAddress);
   await alchemy.nft
     .getNftsForOwner(address)
     .then((res) => {
