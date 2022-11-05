@@ -110,7 +110,10 @@ const Home = () => {
 
   return (
     <div id="container">
-      <button className="walletButton" onClick={handleConnectWallet}>
+      <button
+        className="walletButton float-right"
+        onClick={handleConnectWallet}
+      >
         {walletAddress.length > 0 ? (
           "Connected: " +
           String(walletAddress).substring(0, 6) +
@@ -121,7 +124,7 @@ const Home = () => {
         )}
       </button>
       <button className="walletButton" onClick={handleGetNFTs}>
-        <span>Get NFTs</span>
+        <span>Get Stickers</span>
       </button>
       <button className="walletButton" onClick={handleMint}>
         <span>Mint 3</span>

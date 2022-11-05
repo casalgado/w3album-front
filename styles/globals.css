@@ -16,11 +16,11 @@ body {
 }
 
 #container {
-  width: 80vh;
-  margin-top: 100px;
+  max-width: 1000px;
+  margin-top: 15px;
   border: 4px dashed rgba(4, 4, 5, 0.1);
   min-height: 140px;
-  padding: 32px;
+  padding: 10px 32px;
   position: relative;
   border-radius: 16px;
   -webkit-box-align: center;
