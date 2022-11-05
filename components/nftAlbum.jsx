@@ -24,15 +24,15 @@ export const NFTAlbum = ({ nfts }) => {
     const repeated = [];
     for (let i = 0; i < nfts.length; i++) {
       const nft = nfts[i];
-      const shape = nft.rawMetadata.attributes[0].value;
+      const shape = nft.shape;
       if (stickerList[shape]) {
         stickerList[shape].push(nft);
       } else stickerList[shape] = [nft];
     }
-    console.log("in Album:", stickerList);
+    //console.log("in Album:", stickerList);
 
     order.forEach((shape) => {
-      console.log(shape);
+      //console.log(shape);
       if (stickerList[shape]) {
         unique.push(stickerList[shape][0]);
 
@@ -44,14 +44,16 @@ export const NFTAlbum = ({ nfts }) => {
       } else {
         unique.push({
           title: " - . - ",
-          media: [{ gateway: "placeholder.svg" }],
-          tokenId: "",
+          image: "placeholder.svg",
+          tokenId: shape,
+          shape: "",
+          stuck: "",
         });
       }
     });
-    console.log("unique", unique);
+    // console.log("unique", unique);
     setListUnique(unique);
-    console.log("repeated", repeated);
+    // console.log("repeated", repeated);
     setListRepeated(repeated);
   }, [nfts]);
 
@@ -62,7 +64,11 @@ export const NFTAlbum = ({ nfts }) => {
         <div className="flex flex-wrap gap-y-2 mt-4 gap-x-2 justify-center">
           {listUnique.length &&
             listUnique.map((nft, i) => {
-              return <NFTCard nft={nft} key={i}></NFTCard>;
+              return (
+                <div className="w-1/4 flex flex-col" key={nft.tokenId}>
+                  <NFTCard nft={nft}></NFTCard>
+                </div>
+              );
             })}
         </div>
       </div>
@@ -71,7 +77,11 @@ export const NFTAlbum = ({ nfts }) => {
         <div className="flex flex-wrap gap-y-2 mt-4 gap-x-2 justify-center">
           {listRepeated.length &&
             listRepeated.map((nft, i) => {
-              return <NFTCard nft={nft} key={i}></NFTCard>;
+              return (
+                <div className="w-1/6 flex flex-col" key={nft.tokenId}>
+                  <NFTCard nft={nft}></NFTCard>
+                </div>
+              );
             })}
         </div>
       </div>

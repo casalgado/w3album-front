@@ -109,7 +109,7 @@ const Home = () => {
   }
 
   return (
-    <div id="container">
+    <div id="container" className="bg-white">
       <button
         className="walletButton float-right"
         onClick={handleConnectWallet}
@@ -123,13 +123,13 @@ const Home = () => {
           <span>Connect Wallet</span>
         )}
       </button>
-      <button className="walletButton" onClick={handleGetNFTs}>
+      <button className="walletButton mr-2" onClick={handleGetNFTs}>
         <span>Get Stickers</span>
       </button>
-      <button className="walletButton" onClick={handleMint}>
+      <button className="walletButton mr-2" onClick={handleMint}>
         <span>Mint 3</span>
       </button>
-      <button className="walletButton" onClick={handleCompleteAlbum}>
+      <button className="walletButton mr-2" onClick={handleCompleteAlbum}>
         <span>Complete Album</span>
       </button>
       <div>

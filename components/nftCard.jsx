@@ -1,13 +1,11 @@
 export const NFTCard = ({ nft }) => {
   return (
-    <div className="w-1/4 flex flex-col">
-      <div className="rounded-md">
-        <img
-          className="object-cover h-128 w-full rounded-t-md"
-          src={nft.media[0].gateway}
-        ></img>
-        <h2 className="text-xs text-center text-gray-800">{nft.title}</h2>
-      </div>
+    <div className="rounded-md">
+      <img
+        className="object-cover h-128 w-full rounded-t-md"
+        src={nft.image}
+      ></img>
+      <h2 className="text-xs text-center text-gray-800">{nft.title}</h2>
     </div>
   );
 };

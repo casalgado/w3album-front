@@ -18,7 +18,7 @@ body {
 #container {
   max-width: 1000px;
   margin-top: 15px;
-  border: 4px dashed rgba(4, 4, 5, 0.1);
+  border: 4px dashed rgb(203 213 225);
   min-height: 140px;
   padding: 10px 32px;
   position: relative;
@@ -50,5 +50,5 @@ body {
   cursor: pointer;
   min-width: 160px;
   font-family: Rubik, sans-serif;
-  margin: 5px;
+  margin-top: 5px;
 }

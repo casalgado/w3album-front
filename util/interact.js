@@ -28,13 +28,30 @@ export const getNFTs = async () => {
   await alchemy.nft
     .getNftsForOwner(address)
     .then((res) => {
-      nfts = res.ownedNfts.filter(
-        (e) =>
-          e.contract.address == "0x1ee641636f495ec2b27fcec42297081faae8f82a"
-      );
-      console.log(nfts);
+      nfts = res.ownedNfts
+        .filter(
+          (e) =>
+            e.contract.address == "0x1ee641636f495ec2b27fcec42297081faae8f82a"
+        )
+        .map((e) => {
+          return {
+            tokenId: e.tokenId,
+            title: e.title,
+            image: e.media[0].gateway,
+            shape: e.rawMetadata.attributes[0].value,
+          };
+        });
+      console.log("map", nfts);
     })
     .catch((e) => console.log(e.message));
+  for (let i = 0; i < nfts.length; i++) {
+    const nft = nfts[i];
+    let image = await shapeContract
+      .connect(provider)
+      .generateImage(nft.tokenId);
+    nft.image = image;
+  }
+  console.log("end", nfts);
   return nfts;
 };
 
