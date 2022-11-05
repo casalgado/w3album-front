@@ -7,7 +7,7 @@ import {
   multiMint,
   submitAlbum,
 } from "../util/interact.js";
-import { NFTCard } from "../components/nftCard";
+import { NFTAlbum } from "../components/nftAlbum";
 
 const Home = () => {
   const [walletAddress, setWallet] = useState("");
@@ -129,11 +129,8 @@ const Home = () => {
       <button className="walletButton" onClick={handleCompleteAlbum}>
         <span>Complete Album</span>
       </button>
-      <div className="flex flex-wrap gap-y-12 mt-4 w-5/6 gap-x-2 justify-center">
-        {NFTs.length &&
-          NFTs.map((nft, i) => {
-            return <NFTCard nft={nft} key={i}></NFTCard>;
-          })}
+      <div>
+        <NFTAlbum nfts={NFTs}></NFTAlbum>
       </div>
     </div>
   );
