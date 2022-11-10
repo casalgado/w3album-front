@@ -115,21 +115,19 @@
   },
   {
     "inputs": [
-      { "internalType": "uint256[9]", "name": "ids", "type": "uint256[9]" }
+      { "internalType": "uint256", "name": "tokenId", "type": "uint256" }
     ],
-    "name": "checkAlbumCompletion",
-    "outputs": [
-      { "internalType": "uint256[9]", "name": "", "type": "uint256[9]" }
-    ],
-    "stateMutability": "nonpayable",
+    "name": "generateImage",
+    "outputs": [{ "internalType": "string", "name": "", "type": "string" }],
+    "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
       { "internalType": "uint256", "name": "tokenId", "type": "uint256" }
     ],
-    "name": "generateImage",
-    "outputs": [{ "internalType": "string", "name": "", "type": "string" }],
+    "name": "getAlbumId",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "view",
     "type": "function"
   },
@@ -163,7 +161,7 @@
   },
   {
     "inputs": [],
-    "name": "multiMint",
+    "name": "mintPack",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -204,21 +202,14 @@
     "inputs": [
       { "internalType": "uint256", "name": "tokenId", "type": "uint256" }
     ],
-    "name": "printStuckStatus",
-    "outputs": [{ "internalType": "string", "name": "", "type": "string" }],
+    "name": "randomNumber",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "renounceOwnership",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "safeMint",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -258,6 +249,17 @@
   },
   {
     "inputs": [
+      { "internalType": "uint256[9]", "name": "ids", "type": "uint256[9]" }
+    ],
+    "name": "submitAlbum",
+    "outputs": [
+      { "internalType": "uint256[9]", "name": "", "type": "uint256[9]" }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
       { "internalType": "bytes4", "name": "interfaceId", "type": "bytes4" }
     ],
     "name": "supportsInterface",
@@ -286,7 +288,8 @@
     "name": "tokenIdToAttr",
     "outputs": [
       { "internalType": "uint256", "name": "shapeType", "type": "uint256" },
-      { "internalType": "uint256", "name": "stuckStatus", "type": "uint256" }
+      { "internalType": "uint256", "name": "slot", "type": "uint256" },
+      { "internalType": "uint256", "name": "inAlbum", "type": "uint256" }
     ],
     "stateMutability": "view",
     "type": "function"

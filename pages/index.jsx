@@ -130,7 +130,7 @@ const Home = () => {
         <span>Mint 3</span>
       </button>
       <button className="walletButton mr-2" onClick={handleCompleteAlbum}>
-        <span>Complete Album</span>
+        <span>Submit Album</span>
       </button>
       <div>
         <NFTAlbum nfts={NFTs}></NFTAlbum>

@@ -12,7 +12,7 @@ const alchemy = new Alchemy(settings);
 const provider = await alchemy.config.getProvider();
 
 const contractABI = require("../pages/contract-abi.json");
-const contractAddress = "0x1Ee641636F495ec2b27fCEc42297081faaE8F82A";
+const contractAddress = "0x4Cd5C33e0c27409966403A05c8B1815A526Ac174";
 
 const shapeContract = new ethers.Contract(
   contractAddress,
@@ -29,10 +29,7 @@ export const getNFTs = async () => {
     .getNftsForOwner(address)
     .then((res) => {
       nfts = res.ownedNfts
-        .filter(
-          (e) =>
-            e.contract.address == "0x1ee641636f495ec2b27fcec42297081faae8f82a"
-        )
+        .filter((e) => e.contract.address == contractAddress)
         .map((e) => {
           return {
             tokenId: e.tokenId,
@@ -55,13 +52,13 @@ export const getNFTs = async () => {
   return nfts;
 };
 
-export const multiMint = async () => {
+export const mintPack = async () => {
   const m_provider = new ethers.providers.Web3Provider(window.ethereum, "any");
   const signer = m_provider.getSigner();
   console.log("Account:", await signer.getAddress());
   await shapeContract
     .connect(signer)
-    .multiMint()
+    .mintPack()
     .then((e) => console.log(e))
     .catch((e) => console.log(e.message));
 };
