@@ -12,7 +12,7 @@ const alchemy = new Alchemy(settings);
 const provider = await alchemy.config.getProvider();
 
 const contractABI = require("../pages/contract-abi.json");
-const contractAddress = "0x4Cd5C33e0c27409966403A05c8B1815A526Ac174";
+const contractAddress = "0x4cd5c33e0c27409966403a05c8b1815a526ac174";
 
 const shapeContract = new ethers.Contract(
   contractAddress,
@@ -28,6 +28,7 @@ export const getNFTs = async () => {
   await alchemy.nft
     .getNftsForOwner(address)
     .then((res) => {
+      console.log(res.ownedNfts);
       nfts = res.ownedNfts
         .filter((e) => e.contract.address == contractAddress)
         .map((e) => {
@@ -36,6 +37,7 @@ export const getNFTs = async () => {
             title: e.title,
             image: e.media[0].gateway,
             shape: e.rawMetadata.attributes[0].value,
+            inAlbum: e.rawMetadata.attributes[2].value,
           };
         });
       console.log("map", nfts);
@@ -155,7 +157,7 @@ export const submitAlbum = async (completion) => {
   console.log("Account:", await signer.getAddress());
   await shapeContract
     .connect(signer)
-    .checkAlbumCompletion(ids)
+    .submitAlbum(ids)
     .then((e) => console.log(e))
     .catch((e) => console.log(e.message));
 };

@@ -15,7 +15,7 @@ export const NFTAlbum = ({ nfts }) => {
     "cross",
     "crown",
     "brick",
-    "complete",
+    "final",
   ];
 
   useEffect(() => {
@@ -29,7 +29,7 @@ export const NFTAlbum = ({ nfts }) => {
         stickerList[shape].push(nft);
       } else stickerList[shape] = [nft];
     }
-    //console.log("in Album:", stickerList);
+    console.log("in Album:", stickerList);
 
     order.forEach((shape) => {
       //console.log(shape);

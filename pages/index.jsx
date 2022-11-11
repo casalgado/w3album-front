@@ -4,10 +4,11 @@ import {
   connectWallet,
   getCurrentWalletConnected,
   getNFTs,
-  multiMint,
+  mintPack,
   submitAlbum,
 } from "../util/interact.js";
 import { NFTAlbum } from "../components/nftAlbum";
+import { UiMenu } from "../components/uiMenu";
 
 const Home = () => {
   const [walletAddress, setWallet] = useState("");
@@ -64,7 +65,7 @@ const Home = () => {
   };
 
   const handleMint = async () => {
-    const mint = await multiMint();
+    const mint = await mintPack();
     console.log(mint);
   };
 
@@ -72,9 +73,9 @@ const Home = () => {
     const nfts = await getNFTs();
     const completion = {};
     const attrs = nfts
-      .filter((e) => e.rawMetadata.attributes[1].value == "No")
+      .filter((e) => e.inAlbum == "0")
       .map((e) => {
-        return { id: e.tokenId, shape: e.rawMetadata.attributes[0].value };
+        return { id: e.tokenId, shape: e.shape };
       })
       .sort(inverseById);
 
@@ -110,6 +111,7 @@ const Home = () => {
 
   return (
     <div id="container" className="bg-white">
+      {/* <UiMenu></UiMenu> */}
       <button
         className="walletButton float-right"
         onClick={handleConnectWallet}
