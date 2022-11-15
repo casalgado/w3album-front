@@ -59,7 +59,10 @@ export const NFTAlbum = ({ nfts, setSelectedTokenId, loading }) => {
   }, [nfts]);
 
   return (
-    <div id="main" className="grid grid-cols-2 gap-x-6 max-w-5xl m-6 relative">
+    <div
+      id="main"
+      className="grid grid-cols-2 gap-x-6 max-w-5xl m-2 relative max-h-[88vh]"
+    >
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
         <Dna
           visible={loading}
@@ -93,7 +96,7 @@ export const NFTAlbum = ({ nfts, setSelectedTokenId, loading }) => {
       <div>
         <h2 className="text-center bg-slate-300 mt-4">repetidas</h2>
         <div
-          className={`flex flex-wrap gap-y-2 mt-4 gap-x-2 justify-center ${
+          className={`flex flex-wrap gap-y-2 mt-4 gap-x-2 justify-center overflow-y-auto max-h-[73vh] ${
             loading ? "opacity-40" : "opacity-100"
           }`}
         >
