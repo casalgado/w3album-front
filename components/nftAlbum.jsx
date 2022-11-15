@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { NFTCard } from "../components/nftCard";
+import { Dna } from "react-loader-spinner";
 
-export const NFTAlbum = ({ nfts, setSelectedTokenId }) => {
+export const NFTAlbum = ({ nfts, setSelectedTokenId, loading }) => {
   const [listUnique, setListUnique] = useState([]);
   const [listRepeated, setListRepeated] = useState([]);
   // this will not be necessary when album has 'slots'
@@ -58,7 +59,17 @@ export const NFTAlbum = ({ nfts, setSelectedTokenId }) => {
   }, [nfts]);
 
   return (
-    <div id="main" className="grid grid-cols-2 gap-x-6 max-w-5xl m-6">
+    <div id="main" className="grid grid-cols-2 gap-x-6 max-w-5xl m-6 relative">
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+        <Dna
+          visible={loading}
+          height="80"
+          width="80"
+          ariaLabel="dna-loading"
+          wrapperStyle={{}}
+          wrapperClass="dna-wrapper"
+        />
+      </div>
       <div>
         <h2 className="text-center bg-slate-300 mt-4">album</h2>
         <div className="flex flex-wrap gap-y-2 mt-4 gap-x-2 justify-center">

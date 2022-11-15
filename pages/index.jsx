@@ -13,6 +13,7 @@ import { UiMenu } from "../components/uiMenu";
 
 const Home = () => {
   const [walletAddress, setWallet] = useState("");
+  const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState("");
   const [NFTs, setNFTs] = useState([]);
   const [selectedTokenId, setSelectedTokenId] = useState([]);
@@ -61,8 +62,10 @@ const Home = () => {
   };
 
   const handleGetNFTs = async () => {
+    setLoading(true);
     const nfts = await getNFTs();
     console.log("nfts", nfts);
+    setLoading(false);
     setNFTs(nfts);
   };
 
@@ -156,6 +159,7 @@ const Home = () => {
         <NFTAlbum
           nfts={NFTs}
           setSelectedTokenId={setSelectedTokenId}
+          loading={loading}
         ></NFTAlbum>
       </div>
     </div>
