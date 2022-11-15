@@ -72,7 +72,11 @@ export const NFTAlbum = ({ nfts, setSelectedTokenId, loading }) => {
       </div>
       <div>
         <h2 className="text-center bg-slate-300 mt-4">album</h2>
-        <div className="flex flex-wrap gap-y-2 mt-4 gap-x-2 justify-center">
+        <div
+          className={`flex flex-wrap gap-y-2 mt-4 gap-x-2 justify-center ${
+            loading ? "opacity-40" : "opacity-100"
+          }`}
+        >
           {listUnique.length &&
             listUnique.map((nft, i) => {
               return (
@@ -88,7 +92,11 @@ export const NFTAlbum = ({ nfts, setSelectedTokenId, loading }) => {
       </div>
       <div>
         <h2 className="text-center bg-slate-300 mt-4">repetidas</h2>
-        <div className="flex flex-wrap gap-y-2 mt-4 gap-x-2 justify-center">
+        <div
+          className={`flex flex-wrap gap-y-2 mt-4 gap-x-2 justify-center ${
+            loading ? "opacity-40" : "opacity-100"
+          }`}
+        >
           {listRepeated.length &&
             listRepeated.map((nft, i) => {
               return (
