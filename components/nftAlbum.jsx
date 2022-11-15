@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { NFTCard } from "../components/nftCard";
 
-export const NFTAlbum = ({ nfts }) => {
+export const NFTAlbum = ({ nfts, setSelectedTokenId }) => {
   const [listUnique, setListUnique] = useState([]);
   const [listRepeated, setListRepeated] = useState([]);
   // this will not be necessary when album has 'slots'
@@ -58,7 +58,7 @@ export const NFTAlbum = ({ nfts }) => {
   }, [nfts]);
 
   return (
-    <div className="grid grid-cols-2 gap-x-6">
+    <div id="main" className="grid grid-cols-2 gap-x-6 max-w-5xl m-6">
       <div>
         <h2 className="text-center bg-slate-300 mt-4">album</h2>
         <div className="flex flex-wrap gap-y-2 mt-4 gap-x-2 justify-center">
@@ -66,7 +66,10 @@ export const NFTAlbum = ({ nfts }) => {
             listUnique.map((nft, i) => {
               return (
                 <div className="w-1/4 flex flex-col" key={nft.tokenId}>
-                  <NFTCard nft={nft}></NFTCard>
+                  <NFTCard
+                    nft={nft}
+                    setSelectedTokenId={setSelectedTokenId}
+                  ></NFTCard>
                 </div>
               );
             })}
@@ -79,7 +82,10 @@ export const NFTAlbum = ({ nfts }) => {
             listRepeated.map((nft, i) => {
               return (
                 <div className="w-1/6 flex flex-col" key={nft.tokenId}>
-                  <NFTCard nft={nft}></NFTCard>
+                  <NFTCard
+                    nft={nft}
+                    setSelectedTokenId={setSelectedTokenId}
+                  ></NFTCard>
                 </div>
               );
             })}

@@ -6,6 +6,7 @@ import {
   getNFTs,
   mintPack,
   submitAlbum,
+  tokenTransfer,
 } from "../util/interact.js";
 import { NFTAlbum } from "../components/nftAlbum";
 import { UiMenu } from "../components/uiMenu";
@@ -14,6 +15,7 @@ const Home = () => {
   const [walletAddress, setWallet] = useState("");
   const [status, setStatus] = useState("");
   const [NFTs, setNFTs] = useState([]);
+  const [selectedTokenId, setSelectedTokenId] = useState([]);
 
   //called only once
   useEffect(() => {
@@ -66,10 +68,10 @@ const Home = () => {
 
   const handleMint = async () => {
     const mint = await mintPack();
-    console.log(mint);
+    console.log("mint");
   };
 
-  const handleCompleteAlbum = async () => {
+  const handleSubmitAlbum = async () => {
     const nfts = await getNFTs();
     const completion = {};
     const attrs = nfts
@@ -93,6 +95,7 @@ const Home = () => {
     }
   };
 
+  // rename this function
   function completeAlbum(completion) {
     return Object.keys(completion).length == 9;
   }
@@ -109,33 +112,51 @@ const Home = () => {
     return 0;
   }
 
+  const handleTokenTransfer = async (address, id) => {
+    await tokenTransfer(address, id);
+    console.log(address, id);
+  };
+
   return (
-    <div id="container" className="bg-white">
-      {/* <UiMenu></UiMenu> */}
-      <button
-        className="walletButton float-right"
-        onClick={handleConnectWallet}
-      >
-        {walletAddress.length > 0 ? (
-          "Connected: " +
-          String(walletAddress).substring(0, 6) +
-          "..." +
-          String(walletAddress).substring(38)
-        ) : (
-          <span>Connect Wallet</span>
-        )}
-      </button>
-      <button className="walletButton mr-2" onClick={handleGetNFTs}>
-        <span>Get Stickers</span>
-      </button>
-      <button className="walletButton mr-2" onClick={handleMint}>
-        <span>Mint 3</span>
-      </button>
-      <button className="walletButton mr-2" onClick={handleCompleteAlbum}>
-        <span>Submit Album</span>
-      </button>
+    <div className="flex flex-nowrap">
       <div>
-        <NFTAlbum nfts={NFTs}></NFTAlbum>
+        <UiMenu
+          onMint={handleMint}
+          onSumbitAlbum={handleSubmitAlbum}
+          onGetNFTs={handleGetNFTs}
+          onTokenTransfer={handleTokenTransfer}
+          selectedToken={
+            NFTs.find((e) => e.tokenId == selectedTokenId) || {
+              title: " - . - ",
+              image: "placeholder.svg",
+              tokenId: "-",
+              shape: "",
+              stuck: "",
+            }
+          }
+        ></UiMenu>
+      </div>
+
+      <div className="bg-white flex flex-nowrap flex-col w-full items-center">
+        <div className="nav h-12 w-full max-w-5xl mt-2">
+          <button
+            className="walletButton float-right"
+            onClick={handleConnectWallet}
+          >
+            {walletAddress.length > 0 ? (
+              "Connected: " +
+              String(walletAddress).substring(0, 6) +
+              "..." +
+              String(walletAddress).substring(38)
+            ) : (
+              <span>Connect Wallet</span>
+            )}
+          </button>
+        </div>
+        <NFTAlbum
+          nfts={NFTs}
+          setSelectedTokenId={setSelectedTokenId}
+        ></NFTAlbum>
       </div>
     </div>
   );

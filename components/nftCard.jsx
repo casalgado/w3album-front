@@ -1,6 +1,6 @@
-export const NFTCard = ({ nft }) => {
+export const NFTCard = ({ nft, setSelectedTokenId }) => {
   return (
-    <div className="rounded-md">
+    <div className="rounded-md" onClick={() => setSelectedTokenId(nft.tokenId)}>
       <img
         className="object-cover h-128 w-full rounded-t-md"
         src={nft.image}

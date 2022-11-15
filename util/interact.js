@@ -162,6 +162,17 @@ export const submitAlbum = async (completion) => {
     .catch((e) => console.log(e.message));
 };
 
+export const tokenTransfer = async (destinationAddress, id) => {
+  const m_provider = new ethers.providers.Web3Provider(window.ethereum, "any");
+  const signer = m_provider.getSigner();
+  const from = await signer.getAddress();
+  await shapeContract
+    .connect(signer)
+    .transferFrom(from, destinationAddress, id)
+    .then((e) => console.log(e))
+    .catch((e) => console.log(e.message));
+};
+
 // alchemy.core
 //   .getTokenBalances("0x5E4a3dAfc837cFc4B0FeD7Bab4363B983CC3Cb8F")
 //   .then(console.log);
