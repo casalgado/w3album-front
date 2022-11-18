@@ -5,7 +5,7 @@ export const NFTCard = ({ nft, setSelectedTokenId }) => {
         className="object-cover h-128 w-full rounded-t-md"
         src={nft.image}
       ></img>
-      <h2 className="text-xs text-center text-gray-800">{nft.title}</h2>
+      <h2 className="text-xs text-center text-gray-800">{`Shape # ${nft.slot}`}</h2>
     </div>
   );
 };

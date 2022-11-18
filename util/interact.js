@@ -32,11 +32,13 @@ export const getNFTs = async () => {
       nfts = res.ownedNfts
         .filter((e) => e.contract.address == contractAddress)
         .map((e) => {
+          console.log(e);
           return {
             tokenId: e.tokenId,
             title: e.title,
             image: e.media[0].gateway,
             shape: e.rawMetadata.attributes[0].value,
+            slot: e.rawMetadata.attributes[1].value,
             inAlbum: e.rawMetadata.attributes[2].value,
           };
         });

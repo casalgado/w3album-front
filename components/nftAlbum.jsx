@@ -7,15 +7,15 @@ export const NFTAlbum = ({ nfts, setSelectedTokenId, loading }) => {
   const [listRepeated, setListRepeated] = useState([]);
   // this will not be necessary when album has 'slots'
   const order = [
-    "circle",
-    "square",
-    "triangle",
     "banner",
-    "portal",
-    "shield",
+    "brick",
+    "circle",
     "cross",
     "crown",
-    "brick",
+    "portal",
+    "shield",
+    "square",
+    "triangle",
     "final",
   ];
 
@@ -32,7 +32,7 @@ export const NFTAlbum = ({ nfts, setSelectedTokenId, loading }) => {
     }
     console.log("in Album:", stickerList);
 
-    order.forEach((shape) => {
+    order.forEach((shape, i) => {
       //console.log(shape);
       if (stickerList[shape]) {
         unique.push(stickerList[shape][0]);
@@ -48,6 +48,7 @@ export const NFTAlbum = ({ nfts, setSelectedTokenId, loading }) => {
           image: "placeholder.svg",
           tokenId: shape,
           shape: "",
+          slot: i + 1,
           stuck: "",
         });
       }
