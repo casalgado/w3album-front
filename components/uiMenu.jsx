@@ -32,7 +32,7 @@ export const UiMenu = ({
           id="destinationAdress"
           name="destinationAdress"
           placeholder="destination address"
-          className="w-full text-center"
+          className="w-full text-center mt-3"
           onChange={handleAddressChange}
           value={destinationAdress}
         />

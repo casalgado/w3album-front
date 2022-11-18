@@ -20,15 +20,20 @@ const Home = () => {
 
   //called only once
   useEffect(() => {
-    async function fetchWallet() {
-      const { address, status } = await getCurrentWalletConnected();
-      setWallet(address);
-      setStatus(status);
-      console.log("status:", status);
-    }
     fetchWallet();
     addWalletListener();
   }, []);
+
+  useEffect(() => {
+    handleGetNFTs();
+  }, [walletAddress]);
+
+  async function fetchWallet() {
+    const { address, status } = await getCurrentWalletConnected();
+    setWallet(address);
+    setStatus(status);
+    console.log("status:", status);
+  }
 
   function addWalletListener() {
     if (window.ethereum) {
@@ -62,39 +67,48 @@ const Home = () => {
   };
 
   const handleGetNFTs = async () => {
-    setLoading(true);
-    const nfts = await getNFTs();
-    console.log("nfts", nfts);
-    setLoading(false);
-    setNFTs(nfts);
+    console.log("..");
+    console.log(walletAddress);
+    if (walletAddress != "") {
+      console.log(".3.");
+      setLoading(true);
+      const nfts = await getNFTs();
+      console.log("nfts", nfts);
+      setLoading(false);
+      setNFTs(nfts);
+    }
   };
 
   const handleMint = async () => {
-    const mint = await mintPack();
-    console.log("mint");
+    if (walletAddress != "") {
+      const mint = await mintPack();
+      console.log(mint);
+    }
   };
 
   const handleSubmitAlbum = async () => {
-    const nfts = await getNFTs();
-    const completion = {};
-    const attrs = nfts
-      .filter((e) => e.inAlbum == "0")
-      .map((e) => {
-        return { id: e.tokenId, shape: e.shape };
-      })
-      .sort(inverseById);
+    if (walletAddress != "") {
+      const nfts = await getNFTs();
+      const completion = {};
+      const attrs = nfts
+        .filter((e) => e.inAlbum == "0")
+        .map((e) => {
+          return { id: e.tokenId, shape: e.shape };
+        })
+        .sort(inverseById);
 
-    attrs.forEach((e) => {
-      completion[e.shape] = e.id;
-    });
+      attrs.forEach((e) => {
+        completion[e.shape] = e.id;
+      });
 
-    console.log("attrs", attrs);
-    console.log("completion", completion);
-    if (completeAlbum(completion)) {
-      console.log("album completed");
-      submitAlbum(completion);
-    } else {
-      console.log("album not complete");
+      console.log("attrs", attrs);
+      console.log("completion", completion);
+      if (completeAlbum(completion)) {
+        console.log("album completed");
+        submitAlbum(completion);
+      } else {
+        console.log("album not complete");
+      }
     }
   };
 
@@ -116,13 +130,15 @@ const Home = () => {
   }
 
   const handleTokenTransfer = async (address, id) => {
-    await tokenTransfer(address, id);
-    console.log(address, id);
+    if (walletAddress != "") {
+      await tokenTransfer(address, id);
+      console.log(address, id);
+    }
   };
 
   return (
     <div className="flex flex-nowrap">
-      <div>
+      <div className={`${walletAddress == "" ? "opacity-50" : ""}`}>
         <UiMenu
           onMint={handleMint}
           onSumbitAlbum={handleSubmitAlbum}
@@ -134,6 +150,7 @@ const Home = () => {
               image: "placeholder.svg",
               tokenId: "-",
               shape: "",
+              slot: "",
               stuck: "",
             }
           }
