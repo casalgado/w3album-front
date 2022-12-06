@@ -67,10 +67,10 @@ const Home = () => {
   };
 
   const handleGetNFTs = async () => {
-    console.log("..");
+    console.log(".1.");
     console.log(walletAddress);
     if (walletAddress != "") {
-      console.log(".3.");
+      console.log(".2.");
       setLoading(true);
       const nfts = await getNFTs();
       console.log("nfts", nfts);

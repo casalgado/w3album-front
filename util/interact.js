@@ -1,10 +1,10 @@
 require("dotenv").config();
-const alchemyApiKey = process.env.REACT_APP_ALCHEMY_KEY;
+const alchemyApiKey = process.env.NEXT_PUBLIC_REACT_APP_ALCHEMY_KEY;
 import { Alchemy, Network } from "alchemy-sdk";
 import { ethers } from "ethers";
 
 const settings = {
-  apiKey: alchemyApiKey,
+  apiKey: "MsdyXiw5A0rTUmlZN2EGtWF_4lBo6dYK",
   network: Network.MATIC_MUMBAI,
 };
 
@@ -28,11 +28,11 @@ export const getNFTs = async () => {
   await alchemy.nft
     .getNftsForOwner(address)
     .then((res) => {
-      console.log(res.ownedNfts);
+      //console.log(res.ownedNfts);
       nfts = res.ownedNfts
         .filter((e) => e.contract.address == contractAddress)
         .map((e) => {
-          console.log(e);
+          //console.log(e);
           return {
             tokenId: e.tokenId,
             title: e.title,
@@ -42,7 +42,7 @@ export const getNFTs = async () => {
             inAlbum: e.rawMetadata.attributes[2].value,
           };
         });
-      console.log("map", nfts);
+      //console.log("map", nfts);
     })
     .catch((e) => console.log(e.message));
   for (let i = 0; i < nfts.length; i++) {
@@ -60,11 +60,14 @@ export const mintPack = async () => {
   const m_provider = new ethers.providers.Web3Provider(window.ethereum, "any");
   const signer = m_provider.getSigner();
   console.log("Account:", await signer.getAddress());
-  await shapeContract
-    .connect(signer)
-    .mintPack()
-    .then((e) => console.log(e))
-    .catch((e) => console.log(e.message));
+  let mintTx;
+  try {
+    mintTx = await shapeContract.connect(signer).mintPack();
+    mintTx.wait();
+  } catch (error) {
+    console.log(error);
+  }
+  return mintTx;
 };
 
 export const connectWallet = async () => {
